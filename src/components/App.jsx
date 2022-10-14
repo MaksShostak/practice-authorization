@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
-import AuthForm from './AuthForm/AuthForm';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { currentUser, logout } from 'redux/operations';
-import Button from 'react-bootstrap/Button';
+import { currentUser } from 'redux/operations';
+import Router from './Router/Router';
 
 export const App = () => {
+  const { token } = useSelector(state => state);
   const dispatch = useDispatch();
-  const { isLogin, token } = useSelector(state => state);
-
   useEffect(() => {
     if (token) dispatch(currentUser());
 
@@ -16,7 +15,7 @@ export const App = () => {
   return (
     <div
       style={{
-        height: '100vh',
+        // height: '100vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -24,18 +23,7 @@ export const App = () => {
         color: '#010101',
       }}
     >
-      {isLogin ? (
-        <Button
-          type="button"
-          onClick={() => {
-            dispatch(logout());
-          }}
-        >
-          logout
-        </Button>
-      ) : (
-        <AuthForm />
-      )}
+      <Router />
     </div>
   );
 };

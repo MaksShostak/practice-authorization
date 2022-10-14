@@ -2,32 +2,21 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
+import { signin } from 'redux/operations';
 
-import { register } from 'redux/operations';
-function AuthForm() {
+function SignInForm() {
   const dispatch = useDispatch();
 
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
-    dispatch(register({ name, email, password }));
+    dispatch(signin({ email, password }));
     e.target.reset();
   };
   return (
     <Form onSubmit={onSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicName">
-        <Form.Label>Name</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Name"
-          onChange={e => {
-            setName(e.target.value);
-          }}
-        />
-      </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
@@ -58,4 +47,4 @@ function AuthForm() {
   );
 }
 
-export default AuthForm;
+export default SignInForm;
